@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="${title}"></title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+</head>
+<body>
+<nav class="navbar navbar-dark bg-dark">
+    <a class="navbar-brand" href="#">관리자 대시보드</a>
+</nav>
+<div class="container mt-4">
+    <th:block th:insert="~{::content}"></th:block>
+</div>
+</body>
+</html>
