@@ -18,20 +18,20 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .csrf(AbstractHttpConfigurer::disable)
+                .csrf(AbstractHttpConfigurer::disable) // CSRF 비활성화
                 .authorizeHttpRequests(auth -> auth
-                        //.requestMatchers("/admin/**").permitAll()
+                        .requestMatchers("/login", "/resources/**", "/static/**", "/css/**", "/js/**", "/images/**").permitAll() // 로그인 페이지와 정적 자원에 대한 접근 허용
                         .requestMatchers("/admin/**").hasAnyAuthority("ROLE_ADMIN")
                         .anyRequest().authenticated()
                 )
-                .formLogin(form -> form
+                .formLogin(login -> login
                         .loginPage("/login")
                         .defaultSuccessUrl("/admin/dashboard", false)
                         .permitAll()
                 )
                 .logout(logout -> logout
                         .logoutUrl("/logout")
-                        .logoutSuccessUrl("/")
+                        .logoutSuccessUrl("/login?logout")
                         .permitAll()
                 );
 
