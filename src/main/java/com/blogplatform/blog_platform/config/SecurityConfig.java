@@ -20,7 +20,8 @@ public class SecurityConfig {
         http
                 .csrf(AbstractHttpConfigurer::disable) // CSRF 비활성화
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/login", "/resources/**", "/static/**", "/css/**", "/js/**", "/images/**").permitAll() // 로그인 페이지와 정적 자원에 대한 접근 허용
+                        .requestMatchers("/login", "/resources/**", "/static/**", "/css/**", "/js/**", "/images/**").permitAll()
+                        // 로그인 페이지와 정적 자원에 대한 접근 허용
                         .requestMatchers("/admin/**").hasAnyAuthority("ROLE_ADMIN")
                         .anyRequest().authenticated()
                 )
@@ -48,7 +49,7 @@ public class SecurityConfig {
         return User.builder()
                 .username("admin")
                 .password(passwordEncoder().encode("admin123"))  // 비밀번호 암호화 적용
-                .authorities("ADMIN")
+                .authorities("ROLE_ADMIN")
                 .build();
     }
 
